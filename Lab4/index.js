@@ -5,9 +5,9 @@ const port = 3000
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-let users = []
+let salas = []
 
-users.push({
+salas.push({
     name: "Pepito",
     last: "Perez",
     age: 26,
@@ -16,79 +16,79 @@ users.push({
 })
 
 // ver usuario en especifico
-app.get('/users/:id', (req, res)=>{
+app.get('/salas/:id', (req, res)=>{
     console.log("params:", req.params)
     const requestID = req.params.id
-    let requiredUser = null;
-    for (let index = 0; index < users.length; index++) {
-        console.log(users[index].id === requestID, users[index].id, requestID)
-        if(users[index].id === requestID){
-            requiredUser = users[index];
+    let requiredSala = null;
+    for (let index = 0; index < salas.length; index++) {
+        console.log(salas[index].id === requestID, salas[index].id, requestID)
+        if(salas[index].id === requestID){
+            requiredSala = salas[index];
         }
     }
-    console.log(requiredUser)
-    res.json(requiredUser)
+    console.log(requiredSala)
+    res.json(requiredSala)
 })
 
 // filtrar usuario por edad
-app.get('/users', (req, res)=>{
+app.get('/salas', (req, res)=>{
     if(req.query.age){
-        users = users.filter(
-            (user)=>{return user.age == req.query.age}
+        salas = salas.filter(
+            (sala)=>{return sala.age == req.query.age}
         )
     }
-    res.send({"users":users})
+    res.send({"salas":salas})
 })
 
 // crear usuarios
-app.post('/users', (req, res) => {
-    let newUser = {
+app.post('/salas', (req, res) => {
+    let newSala = {
         name:req.body.name,
         last:req.body.last,
         age:req.body.age,
         id:req.body.id,
         email:req.body.email
     }
-    users.push(newUser)
-    res.send("¡Creación de usuario exitosa!")
+    salas.push(newSala)
+    res.send("¡Creación de sala exitosa!")
 })
 
 app.get('/', (req, res)=>{
-    res.send("Bienvenidos a la API de usuarios")
+    res.send("Bienvenidos a la API de salas")
 })
 
 // eliminar usuarios
-app.delete('/users/:id', (req, res)=>{
+app.delete('/salas/:id', (req, res)=>{
     const idToDelete = req.params.id;
-    let indexToDelete = users.findIndex(user=>user.id==idToDelete)
-    let userDeleted = users.splice(indexToDelete, 1)
-    res.send("Se eliminó correctamente el usuario con id: " + userDeleted[0].id)
+    let indexToDelete = salas.findIndex(sala=>sala.id==idToDelete)
+    let salaDeleted = salas.splice(indexToDelete, 1)
+    res.send("Se eliminó correctamente la sala con id: " + salaDeleted[0].id)
 })
 
 // replazar datos del usuario
-app.put('/users/:id',(req, res)=>{
-    let index = users.findIndex(user => user.id == req.params.id)
-    let newUser = {
+app.put('/salas/:id',(req, res)=>{
+    let index = salas.findIndex(sala => sala.id == req.params.id)
+    let newSala = {
         name:req.body.name,
         last:req.body.last,
         age:req.body.age,
         id:req.body.id,
         email:req.body.email
     }
-    users[index]=newUser
-    res.send("usuario reemplazado " + newUser )
+    salas[index]=newSala
+    res.send("sala reemplazada " + newSala )
 })
 
 // modificar datos del usuario
-app.patch('/users/:id', (req, res)=>{
-    let index = users.findIndex(user => user.id == req.params.id)
+app.patch('/salas/:id', (req, res)=>{
+    let index = salas.findIndex(sala => sala.id == req.params.id)
 
-    users[index].name = req.body.name || users[index].name
-    users[index].last = req.body.last || users[index].last
-    users[index].age = req.body.age || users[index].age
-    users[index].email = req.body.email || users[index].email
+    salas[index].name = req.body.name || salas[index].name
+    salas[index].last = req.body.last || salas[index].last
+    salas[index].age = req.body.age || salas[index].age
+    salas[index].email = req.body.email || salas[index].email
 
-    res.send("usuario modificado ")
+    res.send("sala modificado ")
 })
 
 app.listen(port, () => {
