@@ -14,6 +14,11 @@ salas.push({
     edificio: "C",
     salon: 303,
     reserva: "",
+},
+{
+    edificio: "D",
+    salon: 404,
+    reserva: "",
 })
 
 // ver salas por edificio
@@ -33,7 +38,7 @@ app.get('/salas/:edificio', (req, res) => {
     res.json(salasPorEdificio);
 });
 
-// filtrar usuario por edad
+// mostrar salas
 app.get('/salas', (req, res)=>{
     let salasFilter = [...salas]
     if(req.query.salon){
@@ -64,8 +69,6 @@ app.get('/', (req, res)=>{
 app.patch('/salas/:salon', (req, res)=>{
     let index = salas.findIndex(sala => sala.salon == req.params.salon)
 
-    salas[index].edificio = req.body.edificio || salas[index].edificio
-    salas[index].salon = req.body.salon || salas[index].salon
     salas[index].reserva = req.body.reserva || salas[index].reserva
 
     res.send("sala modificado ")

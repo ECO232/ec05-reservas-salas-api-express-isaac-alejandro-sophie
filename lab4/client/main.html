@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Mis Salas</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
     <h1>Salas por Edificio</h1>
@@ -15,6 +16,15 @@
         <option value="M">Edificio M</option>
     </select>
     <button id="obtenerSalas">Obtener Salas</button>
+    
+    <label for="horaInput">Hora:</label>
+    <input type="text" id="horaInput">
+    
+    <label for="identificacionInput">Número de Identificación:</label>
+    <input type="text" id="identificacionInput">
+    
+    <button id="modificarReserva">Modificar Reserva</button>
+
     <div id="salasContainer"></div>
     
     <script src="index.js"></script>
